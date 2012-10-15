@@ -10,10 +10,10 @@ require_relative './lib/pastedownloader'
 CONFIG = YAML.load_file("config.yml") unless defined? CONFIG
 
 Twitter.configure do |config|
-  config.consumer_key = CONFIG["consumer_key"]
-  config.consumer_secret = CONFIG["consumer_secret"]
-  config.oauth_token = CONFIG["oauth_token"]
-  config.oauth_token_secret = CONFIG["oauth_token_secret"]
+	config.consumer_key = CONFIG["consumer_key"]
+	config.consumer_secret = CONFIG["consumer_secret"]
+	config.oauth_token = CONFIG["oauth_token"]
+	config.oauth_token_secret = CONFIG["oauth_token_secret"]
 end
 
 # Load the database of twitter ids that have been downloaded
@@ -49,8 +49,8 @@ begin
 					downloader = PasteDownloader.create(:pastedump)
 				when /http.*nopaste.*\/(.*)/
 					downloader = PasteDownloader.create(:nopaste)
-        when /http.*pastie.*\/private\/(.*)/
-          downloader = PasteDownloader.create(:pastieprivate)
+				when /http.*pastie.*\/private\/(.*)/
+					downloader = PasteDownloader.create(:pastieprivate)
 				else
 					raise "No downloader available for URL: #{url}"
 			end
