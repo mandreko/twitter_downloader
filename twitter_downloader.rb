@@ -4,14 +4,17 @@ require 're'
 require 'url_expander'
 require 'twitter'
 require 'sqlite3'
+require 'yaml'
 require_relative './lib/pastedownloader'
 
-# Twitter.configure do |config|
-#   config.consumer_key = ""
-#   config.consumer_secret = ""
-#   config.oauth_token = ""
-#   config.oauth_token_secret = ""
-# end
+CONFIG = YAML.load_file("config.yml") unless defined? CONFIG
+
+Twitter.configure do |config|
+  config.consumer_key = CONFIG["consumer_key"]
+  config.consumer_secret = CONFIG["consumer_secret"]
+  config.oauth_token = CONFIG["oauth_token"]
+  config.oauth_token_secret = CONFIG["oauth_token_secret"]
+end
 
 # Load the database of twitter ids that have been downloaded
 db = SQLite3::Database.new("passfile.db")
@@ -24,7 +27,6 @@ begin
 	break if tweets.count == 0  # Once we've ran out of tweets, go ahead and exit
 	
 	puts "Tweets in this batch: #{tweets.count}"
-	puts "Tweet rate limit remaining: #{Twitter.rate_limit.remaining}"
 	
 	tweets.each_with_index do |tweet, idx|
 		next if tweet.text !~ /(http.*t.co.*\/[a-zA-Z0-9]+) .*$/ # If it's not a url, skip it
@@ -33,7 +35,7 @@ begin
 		next if !db.get_first_row( "select id from tweets where id = ?", tweet.id).nil?
 		
 		begin
-			url = UrlExpander::Client.expand($1)
+			url = UrlExpander::Client.expand($1, :config_file => 'config.yml')
 			puts "Processing #{url}"
 			
 			case url
@@ -47,6 +49,8 @@ begin
 					downloader = PasteDownloader.create(:pastedump)
 				when /http.*nopaste.*\/(.*)/
 					downloader = PasteDownloader.create(:nopaste)
+        when /http.*pastie.*\/private\/(.*)/
+          downloader = PasteDownloader.create(:pastieprivate)
 				else
 					raise "No downloader available for URL: #{url}"
 			end

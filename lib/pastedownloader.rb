@@ -32,6 +32,4 @@ require_relative './pastebindownloader'
 require_relative './pastedumpdownloader'
 require_relative './pastesitedownloader'
 require_relative './nopastedownloader'
-
-#PasteDownloader.create(:pastebin).download("1234")
-
+require_relative './pastieprivatedownloader'

@@ -1,0 +1,53 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    domain_name (0.5.4)
+      unf (~> 0.0.3)
+    faraday (0.8.4)
+      multipart-post (~> 1.1)
+    hpricot (0.8.6)
+    httparty (0.9.0)
+      multi_json (~> 1.0)
+      multi_xml
+    json (1.7.5)
+    mechanize (2.5.1)
+      domain_name (~> 0.5, >= 0.5.1)
+      mime-types (~> 1.17, >= 1.17.2)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (~> 2.5, >= 2.5.2)
+      nokogiri (~> 1.4)
+      ntlm-http (~> 0.1, >= 0.1.1)
+      webrobots (~> 0.0, >= 0.0.9)
+    mime-types (1.19)
+    multi_json (1.3.6)
+    multi_xml (0.5.1)
+    multipart-post (1.1.5)
+    net-http-digest_auth (1.2.1)
+    net-http-persistent (2.7)
+    nokogiri (1.5.5)
+    ntlm-http (0.1.1)
+    re (0.0.6)
+    simple_oauth (0.1.9)
+    sqlite3 (1.3.6)
+    twitter (4.1.0)
+      faraday (~> 0.8)
+      multi_json (~> 1.3)
+      simple_oauth (~> 0.1.6)
+    unf (0.0.5)
+      unf_ext
+    unf_ext (0.0.5)
+    url_expander (0.1.5)
+      hpricot
+      httparty (>= 0.6.1)
+      json
+    webrobots (0.0.13)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  mechanize
+  re
+  sqlite3
+  twitter
+  url_expander
